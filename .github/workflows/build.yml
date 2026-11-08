@@ -17,12 +17,12 @@ jobs:
       - name: Extract source
         run: |
           unzip -o VoiceBox-source.zip -d appsrc
-          cd appsrc
+          cd appsrc/VoiceBox-source
           xcodegen generate
 
       - name: Build unsigned app
         run: |
-          cd appsrc
+          cd appsrc/VoiceBox-source
           xcodebuild \
             -project VoiceBox.xcodeproj \
             -scheme VoiceBox \
@@ -36,7 +36,7 @@ jobs:
       - name: Package IPA
         run: |
           mkdir -p Payload
-          cp -R appsrc/build/Build/Products/Release-iphoneos/VoiceBox.app Payload/
+          cp -R appsrc/VoiceBox-source/build/Build/Products/Release-iphoneos/VoiceBox.app Payload/
           zip -qry VoiceBox-unsigned.ipa Payload
 
       - name: Upload IPA
